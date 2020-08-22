@@ -1,0 +1,15 @@
+a:not([href]):not([tabindex]) {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #1565c0;
+}
+.comment-card-title {
+  display: flex;
+  justify-content: space-between;
+}
+.comment-card {
+  margin: 10px 0 15px 0;
+}
+.full-width {
+  width: 100%;
+}

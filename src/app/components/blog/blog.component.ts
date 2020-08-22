@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-blog',
@@ -17,7 +18,10 @@ export class BlogComponent implements OnInit, OnDestroy {
   postId;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute, private blogService: BlogService) {
+  constructor(
+    private route: ActivatedRoute,
+    private blogService: BlogService,
+    private commentService: CommentService) {
     if (this.route.snapshot.params.id) {
       this.postId = this.route.snapshot.paramMap.get('id');
     }

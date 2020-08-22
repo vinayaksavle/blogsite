@@ -20,10 +20,34 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { AuthorProfileComponent } from './components/author-profile/author-profile.component';
+import { ScrollerComponent } from './components/scroller/scroller.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { ShareButtonsConfig, ShareModule } from '@ngx-share/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
+import { SocialShareComponent } from './components/social-share/social-share.component';
+
+const customConfig: ShareButtonsConfig = {
+  twitterAccount: 'mera_naam_vvs'
+};
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [AppComponent, NavBarComponent, HomeComponent, BlogEditorComponent, ExcerptPipe, SlugPipe, BlogCardComponent, BlogComponent, PaginatorComponent],
+  declarations: [AppComponent, 
+    NavBarComponent, 
+    HomeComponent, 
+    BlogEditorComponent, 
+    ExcerptPipe, 
+    SlugPipe, 
+    BlogCardComponent, 
+    BlogComponent, 
+    PaginatorComponent, 
+    AuthorProfileComponent, 
+    ScrollerComponent, 
+    CommentsComponent, 
+    SocialShareComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -34,11 +58,14 @@ import { AuthGuard } from './guards/auth.guard';
     NgMaterialModule,
     CKEditorModule,
     NgxPaginationModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    ShareModule.withConfig(customConfig),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'blog/:id/:slug', component: BlogComponent },
       { path: 'addpost', component: BlogEditorComponent, canActivate: [AuthGuard] },
-      { path: 'editpost/:id', component: BlogEditorComponent},
+      { path: 'editpost/:id', component: BlogEditorComponent, canActivate: [AdminAuthGuard] },
       { path: 'page/:pagenum', component: HomeComponent },
       { path: '**', component: HomeComponent }
     ])

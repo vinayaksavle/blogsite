@@ -8,6 +8,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppUser } from 'src/app/models/appuser';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-blog-card',
@@ -22,7 +23,12 @@ export class BlogCardComponent implements OnInit, OnDestroy {
   appUser: AppUser;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private blogService: BlogService, private snackBarService: SnackbarService, private route: ActivatedRoute, private authService: AuthService) {
+  constructor(
+    private blogService: BlogService, 
+    private snackBarService: SnackbarService, 
+    private route: ActivatedRoute, 
+    private authService: AuthService,
+    private commentService: CommentService) {
     this.pageSizeOptions = [2, 4, 6];
     const pageSize = localStorage.getItem('pageSize');
     this.config = {
@@ -57,6 +63,7 @@ export class BlogCardComponent implements OnInit, OnDestroy {
     if (confirm('Are you sure')) {
       this.blogService.deletePost(postId).then(
         () => {
+          this.commentService.deleteAllCommentForBlog(postId);
           this.snackBarService.showSnackBar('Blog post deleted successfully');
         }
       );
