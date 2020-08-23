@@ -34,6 +34,7 @@
     "bootstrap": "^4.5.0",
     "firebase": "^7.17.1",
     "ngx-pagination": "^5.0.0",
+    "ngx-sharebuttons": "^4.1.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
